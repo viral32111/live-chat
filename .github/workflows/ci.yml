@@ -188,17 +188,15 @@ jobs:
           no-cache: true
           pull: true
 
-      - name: Delete untagged Docker images
+      - name: Delete stale Docker images
         if: ${{ github.event_name != 'pull_request' && !startsWith( github.ref_name, 'dependabot/' ) }}
-        uses: snok/container-retention-policy@v2
+        uses: actions/delete-package-versions@v5
         with:
-          image-names: ${{ env.DOCKER_IMAGE_NAME }}
-          cut-off: 24 hours ago UTC
-          keep-at-least: 1
-          untagged-only: true
-          skip-tags: latest
-          account-type: personal
-          token: ${{ secrets.PACKAGES_PERSONAL_ACCESS_TOKEN }}
+            package-type: container
+            package-name: ${{ env.DOCKER_IMAGE_NAME }}
+            delete-only-untagged-versions: true
+            min-versions-to-keep: 5
+            ignore-versions: latest
 
   deploy-github:
     name: Deploy to GitHub Pages
