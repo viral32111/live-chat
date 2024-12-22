@@ -5,10 +5,10 @@
 	"main": "./dist/main.js",
 	"scripts": {
 		"clean": "rm -r -f ./dist",
-		"lint": "npx eslint ./source",
-		"build": "npm run lint && npx tsc",
-		"start": "npm run build && NODE_ENV=development node .",
-		"test": "npm run clean && npm run build && NODE_ENV=test npx mocha --ui tdd --timeout 10000 --exit --recursive ./dist/tests/"
+		"lint": "eslint ./source",
+		"build": "run lint && tsc",
+		"start": "run build && NODE_ENV=development node .",
+		"test": "run clean && run build && NODE_ENV=test mocha --ui tdd --timeout 10000 --exit --recursive ./dist/tests/"
 	},
 	"author": {
 		"name": "viral32111",
@@ -30,36 +30,51 @@
 		"ephemeral"
 	],
 	"license": "AGPL-3.0-only",
+	"resolutions": {
+		"@types/chai": "^4.3.20",
+		"@typescript-eslint/eslint-plugin": "^7.18.0",
+		"@typescript-eslint/parser": "^6.21.0",
+		"chai": "^4.5.0",
+		"chai-http": "^4.4.0",
+		"eslint": "^8.57.1",
+		"mocha": "^10.8.2"
+	},
 	"dependencies": {
 		"connect-mongo": "^5.1.0",
-		"dotenv": "^16.4.5",
+		"dotenv": "^16.4.7",
 		"express": "^4.21.2",
 		"express-session": "^1.18.1",
-		"log4js": "^6.7.1",
-		"mongodb": "^6.9.0",
+		"log4js": "^6.9.1",
+		"mongodb": "^6.12.0",
 		"multer": "^1.4.5-lts.1",
 		"ws": "^8.18.0"
 	},
 	"devDependencies": {
-		"@types/chai": "^4.3.4",
+		"@types/chai": "^5.0.1",
 		"@types/chai-string": "^1.4.5",
-		"@types/express": "^4.17.21",
-		"@types/express-session": "^1.18.0",
-		"@types/mocha": "^10.0.8",
+		"@types/express": "^5.0.0",
+		"@types/express-session": "^1.18.1",
+		"@types/mocha": "^10.0.10",
 		"@types/multer": "^1.4.12",
-		"@types/node": "^22.7.4",
+		"@types/node": "^22.10.2",
 		"@types/ws": "^8.5.13",
-		"@typescript-eslint/eslint-plugin": "^7.0.0",
-		"@typescript-eslint/parser": "^6.20.0",
-		"chai": "^4.5.0",
-		"chai-http": "^4.3.0",
+		"@typescript-eslint/eslint-plugin": "^8.18.1",
+		"@typescript-eslint/parser": "^8.18.1",
+		"chai": "^5.1.2",
+		"chai-http": "^5.1.1",
 		"chai-string": "^1.5.0",
-		"eslint": "^8.57.0",
-		"mocha": "^10.7.3",
-		"typescript": "^5.6.3"
+		"eslint": "^9.17.0",
+		"mocha": "11.0.1",
+		"typescript": "^5.7.2"
 	},
 	"optionalDependencies": {
-		"bufferutil": "^4.0.7",
-		"utf-8-validate": "^6.0.4"
+		"bufferutil": "^4.0.8",
+		"utf-8-validate": "^6.0.5"
+	},
+	"packageManager": "yarn@4.5.3",
+	"engines": {
+		"node": ">=23.5.0",
+		"npm": ">=11.0.0",
+		"yarn": ">=4.5.3"
 	}
 }

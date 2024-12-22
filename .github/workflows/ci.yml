@@ -58,15 +58,18 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 23
+
+      - name: Setup Yarn
+        run: corepack enable
 
       - name: Install dependencies
         working-directory: Server
-        run: npm install
+        run: yarn install --immutable
 
       - name: Build project
         working-directory: Server
-        run: npm run build
+        run: yarn build
 
       - name: Generate Express session secret
         id: express
@@ -89,7 +92,7 @@ jobs:
           EXPRESS_SESSION_SECRET: ${{ steps.express.outputs.EXPRESS_SESSION_SECRET }}
           EXPRESS_CLIENT_DIRECTORY: ../Client
           EXPRESS_COOKIE_DOMAIN: 127.0.0.1
-        run: npm test
+        run: yarn test
 
       - name: Remove tests
         working-directory: Server
@@ -108,7 +111,7 @@ jobs:
           path: |
             Server/dist/
             Server/package.json
-            Server/package-lock.json
+            Server/yarn.lock
             Server/production.env
 
   docker:

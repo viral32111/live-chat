@@ -46,7 +46,7 @@ export default function() {
 
 	// Add support for various middlewares for the Express application
 	expressApp.use( express.json() )
-	expressApp.use( expressSession( {
+	const a = expressSession( {
 		name: "sessionIdentifier",
 		secret: EXPRESS_SESSION_SECRET,
 		resave: true,
@@ -62,7 +62,8 @@ export default function() {
 			secure: EXPRESS_COOKIE_SECURE,
 			sameSite: "strict"
 		}
-	} ) )
+	} )
+	expressApp.use( a )
 	log.info( "Setup Express middlewares." )
 
 	// Enable trusting reverse proxies if the environment variable is set
@@ -93,7 +94,7 @@ export default function() {
 		maxAge: 600000 // 10 minutes
 	} ) )
 	log.info( "Setup serving the client-side files." )
-	
+
 	// Setup the multer middleware for file uploading - https://github.com/expressjs/multer#api
 	const attachmentsDirectory = join( EXPRESS_CLIENT_DIRECTORY, "attachments" )
 	const multerMiddleware = multer( {
