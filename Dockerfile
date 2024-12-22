@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Start from Node.js
-FROM node:20
+FROM node:23
 
 # Copy the project files
 COPY --chown=0:0 . /app
@@ -9,9 +9,12 @@ COPY --chown=0:0 . /app
 # Switch to the project directory
 WORKDIR /app
 
+# Setup Yarn
+RUN corepack enable
+
 # Install production dependencies
 RUN cd server && \
-	npm clean-install --omit=dev
+	yarn install --immutable
 
 # Configure the defaults
 ENV NODE_ENV=production \
