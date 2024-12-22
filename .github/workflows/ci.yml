@@ -32,7 +32,7 @@ jobs:
           css: true
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}-client
           path: Client
@@ -96,13 +96,13 @@ jobs:
         run: rm --verbose --recursive dist/tests
 
       - name: Upload log artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}-server-log
           path: Server/logs/server.log
 
       - name: Upload build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}-server
           path: |
@@ -144,13 +144,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Download server build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}-server
           path: artifacts/server/
 
       - name: Download client build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}-client
           path: artifacts/client/
@@ -217,7 +217,7 @@ jobs:
         uses: actions/configure-pages@v5
 
       - name: Download client build artifact
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}-client
           path: artifact
